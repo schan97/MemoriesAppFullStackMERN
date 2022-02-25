@@ -6,14 +6,14 @@ import cors from 'cors';
 import postRoutes from './routes/posts.js'
 
 const app = express();
-
+app.use(cors());
 // Sets the route prefix to localhost:5000/posts
 app.use('/posts', postRoutes)
 
 // File Size Limit
 app.use(bodyParser.json({limit: '30mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '30mb', extended: true}));
-app.use(cors());
+
 
 const CONNECTION_STRING = "mongodb+srv://memories-user:memories-user123@cluster0.lyiad.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 5000;
