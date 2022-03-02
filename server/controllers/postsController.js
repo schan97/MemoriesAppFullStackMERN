@@ -31,9 +31,10 @@ export const createPost = async (req, res) => {
     }
 }
 
-// we are getting id from the route using req.params;
+
 export const updatePost = async (req, res) => {
 
+    // we are getting id from the route using req.params and aliasing it as _id;
     const { id: _id } = req.params;
     //const { title, message, creator, selectedFile, tags } = req.body;
     const post = req.body;
@@ -50,4 +51,20 @@ export const updatePost = async (req, res) => {
     const updatedPost = await PostMessage.findByIdAndUpdate(_id, {...post, _id}, { new: true });
 
     res.json(updatedPost);
+}
+
+export const deletePost = async (req, res) => {
+    // we are getting id from the route using req.params;
+    const { id } = req.params;
+
+    // checks if the id is a mongoose object id
+    if(!mongoose.Types.ObjectId.isValid(id))
+    {
+        return res.status(404).send('No post with that id');
+    }
+
+    await PostMessage.findByIdAndRemove(id);
+
+    return res.json({message: `Post deleted successfully`});
+
 }

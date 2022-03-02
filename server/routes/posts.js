@@ -1,6 +1,6 @@
 // make sure to incluse file extensions for references
 import express from "express";
-import { getPosts, createPost, updatePost } from "../controllers/postsController.js";
+import { getPosts, createPost, updatePost, deletePost } from "../controllers/postsController.js";
 
 const router = express.Router();
 
@@ -8,5 +8,6 @@ const router = express.Router();
 router.get('/', getPosts);
 router.post('/', createPost);
 router.patch('/:id', updatePost);
+router.delete('/:id', deletePost);
 
 export default router;
