@@ -6,7 +6,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import {useDispatch} from 'react-redux';
 
-import { deletePost, likePost, getPosts } from '../../../actions/posts.js';
+import { deletePost, likePost} from '../../../actions/posts.js';
 
 import moment from 'moment';
     
@@ -14,9 +14,7 @@ const Post = ({post, setCurrentId}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getPosts());
-    },[post])
+
 
     return(
         <Card className={classes.card}>
