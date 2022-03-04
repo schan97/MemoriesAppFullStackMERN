@@ -56,3 +56,17 @@ export const deletePost = (id) => async (dispatch) => {
     console.log(error);
   }
 }
+
+export const likePost = (id) => async (dispatch) => {
+  try{
+    await api.likePost(id);
+
+    dispatch({
+      type: 'UPDATE',
+      payload: id,
+    }); 
+  }
+  catch(error){
+    console.log(error);
+  }
+}
