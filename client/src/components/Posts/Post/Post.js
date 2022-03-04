@@ -18,30 +18,43 @@ const Post = ({post, setCurrentId}) => {
 
     return(
         <Card className={classes.card}>
+
+            {/* Card Picture, post creator & time elasped from post creation */}
             <CardMedia className={classes.media} image={post.selectedFile} title={post.title}/>
             <div className={classes.overlay}>
                 <Typography variant='h6'>{post.creator}</Typography>
                 <Typography variant='body2'>{moment(post.createdAt).fromNow()}</Typography>
             </div>
+
+            {/* Ellipse Icon */}
             <div className={classes.overlay2}>
                 <Button style={{color: "white"}} size="small" onClick={() => setCurrentId(post._id)}>
                     <MoreHorizIcon fontSize="medium"/>
                 </Button>
             </div>
+
+            {/* Details / Tags */}
             <div className={classes.details}>
                 <Typography variant='body2' color='textSecondary'>{post.tags.map((tag) => `#${tag} `)}</Typography>
             </div>
+
+            {/* Post Title & Message */}
             <Typography className={classes.title} variant='h5' gutterBottom>{post.title}</Typography>
             <CardContent>
                 <Typography variant='h5' gutterBottom>{post.message}</Typography>
             </CardContent>
             
+            {/* Post Actions */}
             <CardActions className={classes.cardActions}>
+
+                {/* Like */}
                 <Button size="small" color="primary" onClick={() => dispatch(likePost(post._id))}>
                     <ThumbUpAltIcon fontSize="small"/>
                     Like
                     {post.likeCount}
                 </Button>
+
+                {/* Delete */}
                 <Button size="small" color="primary" onClick={() => dispatch(deletePost(post._id))}>
                     <DeleteIcon fontSize="small"/>
                     Delete
