@@ -15,6 +15,9 @@ app.use(cors());
 // Sets the route prefix to localhost:5000/posts
 app.use('/posts', postRoutes)
 
+app.get('/', (req,res) => {
+    res.send("Welcome to Memories API");
+});
 
 const PORT = process.env.PORT || 5000;
 
