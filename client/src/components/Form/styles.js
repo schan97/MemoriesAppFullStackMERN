@@ -13,6 +13,7 @@ export default makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    padding: theme.spacing(2),
   },
   fileInput: {
     width: '97%',
