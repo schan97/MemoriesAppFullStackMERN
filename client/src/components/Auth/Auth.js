@@ -7,11 +7,21 @@ import {GoogleLogin} from 'react-google-login';
 import Icon from './Icon';
 import {useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import {signin, signup} from '../../actions/auth.js'
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: ""
+}
 
 const Auth = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [formData, setFormData] = useState(initialState)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,12 +29,22 @@ const Auth = () => {
 
   const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    // prevents the view from refreshing on submission
+    e.preventDefault();
+    
+    if(isSignUp) {
+      dispatch(signup(formData,navigate));
+    }
+    else{
+      dispatch(signin(formData,navigate));
+    }
 
   };
 
-  const handleChange = () => {
-
+  const handleChange = (e) => {
+    // spread the values, and only change the specific event value
+    setFormData({...formData, [e.target.name]: e.target.value})
   };
 
   const switchMode = () => {

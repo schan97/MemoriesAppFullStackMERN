@@ -1,4 +1,4 @@
-// make sure to incluse file extensions for references
+// make sure to include file extensions for references
 import express from "express";
 import { getPosts, createPost, updatePost, deletePost, likePost } from "../controllers/postsController.js";
 
