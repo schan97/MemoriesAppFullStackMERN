@@ -4,6 +4,9 @@ import {AppBar, Avatar, Toolbar, Typography, Button} from '@material-ui/core';
 import useStyles from './styles';
 import memories from '../../images/memories.png';
 import { useDispatch } from 'react-redux';
+import decode from 'jwt-decode';
+
+import { LOGOUT } from '../../constants/actionTypes.js'
 
 
 
@@ -16,18 +19,32 @@ const Navbar = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
     const logout = () => {
-        dispatch({type: 'LOGOUT'});
+        dispatch({type: LOGOUT});
 
-        // navigate to home after logging out
-        navigate("/");
-
+        
         // set user to null
         setUser(null);
+
+        // navigate to auth after logging out
+        navigate("/auth");
+        
+
     }
 
     // Listens when location changes, set the user
     useEffect(() => {
         const token = user?.token;
+
+        if(token) {
+            const decodedToken = decode(token);
+
+            // checks if the token is expired
+            if(decodedToken.exp * 1000 < new Date().getTime())
+            {
+                // if token is expired, logout the user
+                logout();
+            }
+        }
 
         setUser(JSON.parse(localStorage.getItem('profile')))
     }, [location]);
