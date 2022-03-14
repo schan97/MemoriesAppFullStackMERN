@@ -4,7 +4,7 @@ import axios from 'axios';
 // const url = 'https://app-memories-proj.herokuapp.com/posts'
 // const url = 'http://localhost:5000/posts'
 
-const API = axios.create({baseURL: 'https://app-memories-proj.herokuapp.com/posts'});
+const API = axios.create({baseURL: 'https://app-memories-proj.herokuapp.com'});
 
 API.interceptors.request.use((req) => {
     if(localStorage.getItem('profile')) {
