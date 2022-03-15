@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 // url pointing to our backend route that we created and specified
-// const url = 'https://app-memories-proj.herokuapp.com/posts'
-// const url = 'http://localhost:5000/posts'
+// const url = 'https://app-memories-proj.herokuapp.com'
+// const url = 'http://localhost:5000'
 
-const API = axios.create({baseURL: 'https://app-memories-proj.herokuapp.com'});
+const API = axios.create({baseURL: 'http://localhost:5000'});
 
 API.interceptors.request.use((req) => {
     if(localStorage.getItem('profile')) {
