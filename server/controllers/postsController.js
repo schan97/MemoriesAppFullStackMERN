@@ -15,6 +15,28 @@ export const getPosts = async (req, res) => {
     }
 }
 
+// Query -> /posts?page=1 -> page = 1
+// Params -> /posts/123 -> id = 123
+
+export const getPostsBySearch = async (req, res) => {
+
+    // grabbing searchQuery and tags from the request query
+    const {searchQuery, tags} = req.query
+
+    try{
+        const title = new RegExp(searchQuery, 'i'); // i flag means ignore case, example: "Test", "TEST", "TeSt"
+
+        // $or means to find the posts based on the search term or tags
+        // $in means is there a tag in the tags array that matches our query
+        const posts = await PostMessage.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]});
+
+        res.json({data: posts});
+    }
+    catch(error){
+        res.status(404).json({message: error});
+    }
+}
+
 
 export const createPost = async (req, res) => {
     const post = req.body;

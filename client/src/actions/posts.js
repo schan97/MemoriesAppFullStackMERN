@@ -20,9 +20,13 @@ export const getPosts = () => async (dispatch) => {
 
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
-    const {data} = await api.fetchPostsBySearch(searchQuery);
+    // we have to destructure the data twice, first because we are making an axios request
+    // and second time because we put it in a new object with the property called data.
+    // Look at the postsController and getPostsBySearch method on server side: 
+    // we return res.json({data: posts});
+    const {data: {data}} = await api.fetchPostsBySearch(searchQuery);
 
-    console.log("search data: " + data);
+    console.log( data);
   }
   catch(error){
     console.log(error);
