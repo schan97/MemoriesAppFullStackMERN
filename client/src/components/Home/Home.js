@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getPosts } from '../../actions/posts';
+import { getPosts, getPostsBySearch } from '../../actions/posts';
 
 import {Grow, Grid, Container, Paper, AppBar, TextField, Button, Chip} from '@material-ui/core';
 import ChipInput from 'material-ui-chip-input';
@@ -40,6 +40,7 @@ const Home = () => {
     const searchPost = () => {
         if(search.trim()){
             // dispatch -> fetch search post
+            dispatch(getPostsBySearch({search, tags: tags.join(',')}));
         }
         else{
             navigate('/');
