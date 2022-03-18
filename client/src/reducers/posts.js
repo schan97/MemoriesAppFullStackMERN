@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes.js';
+import { FETCH_ALL, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes.js';
 
 export default (posts = [], action) => {
 
@@ -11,8 +11,10 @@ export default (posts = [], action) => {
             // checks if the post id matched the action payload id, 
             // if it does return the action payload, else return the original post
             return posts.map((post) => post._id === action.payload._id ? action.payload : post);
-            
         case FETCH_ALL:
+            return action.payload;
+
+        case FETCH_BY_SEARCH:
             return action.payload;
         
         case CREATE:
@@ -22,4 +24,4 @@ export default (posts = [], action) => {
             return posts;
     }
 
-}
+};
