@@ -31,11 +31,7 @@ const Home = () => {
 
     const dispatch = useDispatch();
 
-    // listens on the change of dispatch and currentId
-    // if it ever changes the get posts will be executed again
-    useEffect(() => {
-        dispatch(getPosts());
-    }, [currentId, dispatch]);
+
 
     const searchPost = () => {
         if(search.trim() || tags){
@@ -94,7 +90,7 @@ const Home = () => {
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
                         <Paper className={classes.pagination} elevation={6}>
-                            <Pagination/>
+                            <Pagination page={page}/>
                         </Paper>
                     </Grid>
                 </Grid>

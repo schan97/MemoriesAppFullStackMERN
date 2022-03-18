@@ -5,15 +5,13 @@ import { useSelector } from 'react-redux';
 import {Grid, CircularProgress} from '@material-ui/core';
     
 const Posts = ({setCurrentId}) => {
-    const posts = useSelector((state) => state.posts);
+    const {posts} = useSelector((state) => state.posts);
     const classes = useStyles();
-
-    console.log(posts);
 
     return(
         // checks if posts is populated, if not show loading circle, 
         // else show the Grid with each post (looped with map)
-        !posts.length ? <CircularProgress/> : (
+        !posts?.length ? <CircularProgress/> : (
             <Grid className={classes.mainContainer} container alignItems='stretch' spacing={3}>
                 {
                     posts.map((post) => (
