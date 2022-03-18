@@ -2,16 +2,22 @@ import React from 'react';
 import Post from './Post/Post.js'
 import useStyles from './styles'
 import { useSelector } from 'react-redux';
-import {Grid, CircularProgress} from '@material-ui/core';
+import {Grid, CircularProgress, Typography} from '@material-ui/core';
     
 const Posts = ({setCurrentId}) => {
-    const {posts} = useSelector((state) => state.posts);
+    const {posts, isLoading} = useSelector((state) => state.posts);
     const classes = useStyles();
+
+    if(!posts.length && !isLoading){
+        return (
+            <Typography>No Posts Found.</Typography>
+        )
+    }
 
     return(
         // checks if posts is populated, if not show loading circle, 
         // else show the Grid with each post (looped with map)
-        !posts?.length ? <CircularProgress/> : (
+        isLoading ? <CircularProgress/> : (
             <Grid className={classes.mainContainer} container alignItems='stretch' spacing={3}>
                 {
                     posts.map((post) => (

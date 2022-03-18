@@ -1,16 +1,19 @@
 import * as api from '../api/index.js';
-import { FETCH_ALL, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes.js';
+import { FETCH_ALL, FETCH_BY_SEARCH, START_LOADING, END_LOADING, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes.js';
 
 // Action Creators are functions that return an action
 export const getPosts = (page) => async (dispatch) => {
 
     try{
+        dispatch({type: START_LOADING});
         const {data} = await api.fetchPosts(page);
 
         dispatch({
             type: FETCH_ALL,
             payload: data,
         });
+
+        dispatch({type: END_LOADING});
     }
     catch(error){
         console.log(error.message);
@@ -20,6 +23,8 @@ export const getPosts = (page) => async (dispatch) => {
 
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
+    dispatch({type: START_LOADING});
+
     // we have to destructure the data twice, first because we are making an axios request
     // and second time because we put it in a new object with the property called data.
     // Look at the postsController and getPostsBySearch method on server side: 
@@ -30,6 +35,8 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
       type: FETCH_BY_SEARCH,
       payload: data,
     });
+
+    dispatch({type: END_LOADING});
   }
   catch(error){
     console.log(error);
@@ -38,12 +45,15 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 
 export const createPost = (post) => async (dispatch) => {
     try {
+      dispatch({type: START_LOADING});
       const { data } = await api.createPost(post);
   
       dispatch({ 
         type: CREATE, 
         payload: data 
       });
+
+      dispatch({type: END_LOADING});
     } catch (error) {
       console.log(error.message);
     }
