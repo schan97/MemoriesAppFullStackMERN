@@ -18,6 +18,8 @@ export const signin = async (req, res) => {
 
         const token = jwt.sign({email: existingUser.email, id: existingUser._id}, process.env.TOKEN_SECRET, {expiresIn: "1h"})
 
+        existingUser.password = "";
+
         res.status(200).json({result: existingUser, token});
     }
     catch (error) {
