@@ -11,6 +11,7 @@ export const signin = (formData,navigate) => async (dispatch) => {
     }
     catch (error) {
         console.log(error);
+        alert("Invalid Credentials");
     }
 }
 
