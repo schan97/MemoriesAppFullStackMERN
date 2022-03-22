@@ -18,7 +18,7 @@ const Form = ({currentId, setCurrentId}) => {
     });
 
     // if current Id is not null find the post whose id is equal to it, else return null
-    const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
+    const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
     const classes = useStyles();
     const dispatch = useDispatch();
     const user = JSON.parse(localStorage.getItem('profile'));
