@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { FETCH_POST, FETCH_ALL, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE, START_LOADING, END_LOADING } from '../constants/actionTypes.js';
+import { FETCH_POST, FETCH_ALL, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE, COMMENT, START_LOADING, END_LOADING } from '../constants/actionTypes.js';
 
 export default (state = {isLoading: true, posts:[]}, action) => {
 
@@ -36,6 +36,17 @@ export default (state = {isLoading: true, posts:[]}, action) => {
             // checks if the post id matched the action payload id, 
             // if it does return the action payload, else return the original post
             return {...state, posts: state.posts.map((post) => post._id === action.payload._id ? action.payload : post)};
+        case COMMENT:
+            return {...state, posts: state.posts.map((post) => {
+                // change the post that just received a comment
+                if(post._id === action.payload._id)
+                {
+                    return action.payload;
+                }
+                
+                // return all the other posts normally
+                return post;
+            })};
         
         case DELETE:
             // return all the posts that don't include the one we just deleted 

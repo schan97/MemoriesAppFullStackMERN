@@ -88,8 +88,8 @@ export const updatePost = async (req, res) => {
     }
 
 
-    //const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
-
+    // const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
+    // updating post in database
     const updatedPost = await PostMessage.findByIdAndUpdate(_id, {...post, _id}, { new: true });
 
     res.json(updatedPost);
@@ -137,9 +137,26 @@ export const likePost = async (req, res) => {
         post.likes = post.likes.filter((id) => id !== String(req.userId));
     }
 
+    // updating post in database
     const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {new: true});
 
     res.json(updatedPost);
 
 
+}
+
+export const commentPost = async (req, res) => {
+    const {id} = req.params;
+    const {value} = req.body;
+
+    // getting post from database
+    const post = await PostMessage.findById(id);
+
+    // adding the comments to the post
+    post.comments.push(value);
+
+    // updating post in database
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {new: true});
+
+    res.json(updatedPost);
 }
